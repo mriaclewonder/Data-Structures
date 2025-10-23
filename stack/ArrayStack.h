@@ -23,6 +23,11 @@ public:
     void Clear();
     std::size_t GetSize() const;
 
+    std::size_t GetCapacity() const;
+
+private:
+    void Resize();
+
 private:
     std::size_t top;
     T *array;
@@ -109,7 +114,7 @@ template <class T>
 inline void MyStack<T>::Push(T data)
 {
     if (isFull())
-        throw std::overflow_error("Stack is full. Cannot Push");
+        Resize(); // 栈满时自动扩容
 
     array[top] = data;
     top++;
@@ -166,4 +171,29 @@ template <class T>
 inline std::size_t MyStack<T>::GetSize() const
 {
     return top;
+}
+
+// 扩容
+template <class T>
+inline void MyStack<T>::Resize()
+{
+    std::size_t newSize = maxSize * 2;
+    T *newArray = new T[newSize];
+
+    // 拷贝原有的数据
+    for (std::size_t i = 0; i < top; ++i)
+    {
+        newArray[i] = std::move(array[i]);
+    }
+
+    delete[] array;
+    array = newArray;
+    maxSize = newSize;
+    std::cout << "Stack resized to " << maxSize << " elements\n"; // 调试信息
+}
+
+template <class T>
+inline std::size_t MyStack<T>::GetCapacity() const
+{
+    return maxSize;
 }

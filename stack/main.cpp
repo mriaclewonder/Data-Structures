@@ -3,44 +3,56 @@
 
 int main()
 {
-    // 1. 创建栈
-    MyStack<int> stack(5);
+    MyStack<int> stack(3); // 初始容量为3
 
-    // 2. 入栈操作
-    std::cout << "Pushing elements: ";
-    for (int i = 1; i <= 5; ++i)
+    std::cout << "Initial capacity: " << stack.GetCapacity() << std::endl;
+
+    // 测试自动扩容
+    for (int i = 1; i <= 10; ++i)
     {
-        stack.Push(i * 10);
-        std::cout << i * 10 << " ";
+        stack.Push(i);
+        std::cout << "Pushed " << i << ", Size: " << stack.GetSize()
+                  << ", Capacity: " << stack.GetCapacity() << std::endl;
     }
-    std::cout << std::endl;
 
-    // 3. 查看栈顶
-    std::cout << "Top element: " << stack.Top() << std::endl;
+    // // 1. 创建栈
+    // MyStack<int> stack(5);
 
-    // 4. 获取栈大小
-    std::cout << "Stack size: " << stack.GetSize() << std::endl;
+    // // 2. 入栈操作
+    // std::cout << "Pushing elements: ";
+    // for (int i = 1; i <= 5; ++i)
+    // {
+    //     stack.Push(i * 10);
+    //     std::cout << i * 10 << " ";
+    // }
+    // std::cout << std::endl;
 
-    // 5. 出栈操作
-    std::cout << "Popping elements: ";
-    while (!stack.isEmpty())
-    {
-        std::cout << stack.Pop() << " ";
-    }
-    std::cout << std::endl;
+    // // 3. 查看栈顶
+    // std::cout << "Top element: " << stack.Top() << std::endl;
 
-    // 6. 检查栈空
-    std::cout << "Stack is empty: " << (stack.isEmpty() ? "Yes" : "No") << std::endl;
+    // // 4. 获取栈大小
+    // std::cout << "Stack size: " << stack.GetSize() << std::endl;
 
-    // 7. 异常处理示例
-    try
-    {
-        stack.Pop(); // 这会抛出异常
-    }
-    catch (const std::exception &e)
-    {
-        std::cout << "Exception caught: " << e.what() << std::endl;
-    }
+    // // 5. 出栈操作
+    // std::cout << "Popping elements: ";
+    // while (!stack.isEmpty())
+    // {
+    //     std::cout << stack.Pop() << " ";
+    // }
+    // std::cout << std::endl;
+
+    // // 6. 检查栈空
+    // std::cout << "Stack is empty: " << (stack.isEmpty() ? "Yes" : "No") << std::endl;
+
+    // // 7. 异常处理示例
+    // try
+    // {
+    //     stack.Pop(); // 这会抛出异常
+    // }
+    // catch (const std::exception &e)
+    // {
+    //     std::cout << "Exception caught: " << e.what() << std::endl;
+    // }
 
     return 0;
 }
