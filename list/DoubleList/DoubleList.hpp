@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 
+/// @brief 节点
 struct Node
 {
     Node(int _val) : _val(_val), _prev(nullptr), _next(nullptr) {}
@@ -10,6 +11,7 @@ struct Node
     Node *_next;
 };
 
+/// @brief 双向链表
 class DoubleList
 {
 public:
@@ -19,6 +21,9 @@ public:
     DoubleList(const DoubleList &) = delete;
     DoubleList &operator=(const DoubleList &) = delete;
 
+    /// @brief 重载[]运算符，支持访问链表中的元素
+    /// @param index
+    /// @return 访问到的元素值
     int operator[](const int index) const
     {
         if (index < 0 || index >= _size)
@@ -42,6 +47,7 @@ public:
         return cur->_val;
     }
 
+    /// @brief 清空链表，释放所有节点的内存
     void clear()
     {
         Node *cur = _head;
@@ -55,6 +61,8 @@ public:
         _size = 0;
     }
 
+    /// @brief 在链表头部插入一个新节点，节点值为val
+    /// @param val 要插入的节点值
     void push_front(const int val)
     {
         Node *newNode = new Node(val);
@@ -71,6 +79,8 @@ public:
         ++_size;
     }
 
+    /// @brief 在链表尾部插入一个新节点，节点值为val
+    /// @param val 要插入的节点值
     void push_back(const int val)
     {
         Node *newNode = new Node(val);
@@ -87,6 +97,9 @@ public:
         ++_size;
     }
 
+    /// @brief 在指定位置插入一个新节点，节点值为val
+    /// @param pos 插入位置，0表示在链表头部插入，size()表示在链表尾部插入
+    /// @param val 插入节点的值
     void insert(const int pos, const int val)
     {
         if (pos < 0 || pos > _size)
@@ -131,6 +144,7 @@ public:
         ++_size;
     }
 
+    /// @brief 从链表头部删除一个节点
     void pop_front()
     {
         if (_head == nullptr)
@@ -151,6 +165,7 @@ public:
         --_size;
     }
 
+    /// @brief 从链表尾部删除一个节点
     void pop_back()
     {
         if (_tail == nullptr)
@@ -172,6 +187,8 @@ public:
         --_size;
     }
 
+    /// @brief 删除指定位置的节点
+    /// @param index 要删除节点的位置，0表示链表头部，size() - 1表示链表尾部
     void erase(const int index)
     {
         if (index < 0 || index >= _size)
@@ -213,6 +230,8 @@ public:
         --_size;
     }
 
+    /// @brief 获取链表头部节点的值
+    /// @return 链表头部节点的值
     int front() const
     {
         if (_head == nullptr)
@@ -222,6 +241,8 @@ public:
         return _head->_val;
     }
 
+    /// @brief 获取链表尾部节点的值
+    /// @return 链表尾部节点的值
     int back() const
     {
         if (_tail == nullptr)
@@ -231,11 +252,15 @@ public:
         return _tail->_val;
     }
 
+    /// @brief 获取链表中节点的数量
+    /// @return 链表中节点的数量
     int size() const
     {
         return _size;
     }
 
+    /// @brief 判断链表是否为空
+    /// @return 如果链表为空，返回true；否则返回false
     bool empty() const
     {
         return _size == 0;

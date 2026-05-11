@@ -5,78 +5,69 @@
 #include <stdexcept>
 #include <utility>
 
-/**
- * 节点类
- */
+/// @brief 链式栈节点
+/// @tparam T 节点存储的数据类型
 template <class T>
-struct Node {
+struct Node
+{
 public:
     Node(T const &d, Node *n) : _data(d), _next(n) {}
-
     Node(T &&d, Node *n) : _data(std::move(d)), _next(n) {}
 
 public:
-    // 数据域
     T _data;
-
-    // 指针域
     Node *_next;
 };
 
-/**
- * 链式栈
- */
+/// @brief 链式栈
+/// @tparam T 栈中存储的数据类型
 template <class T>
-class LinkStack {
+class LinkStack
+{
 public:
-    // 构造函数
     LinkStack() noexcept;
 
-    // 禁用拷贝构造
     LinkStack(LinkStack const &) = delete;
-
-    // 禁用拷贝赋值
     LinkStack &operator=(LinkStack const &) = delete;
 
-    // 移动构造
     LinkStack(LinkStack &&other) noexcept;
-
-    // 移动赋值
     LinkStack &operator=(LinkStack &&other) noexcept;
-
-    // 析构函数
     ~LinkStack();
 
-    // 左值入栈
+    /// @brief 左值入栈
+    /// @param val 要入栈的左值
     void push(T const &val);
 
-    // 右值入栈
+    /// @brief 右值入栈
+    /// @param val 要入栈的右值
     void push(T &&val);
 
-    // 出栈
+    /// @brief 出栈
+    /// @return 出栈的元素
     T pop();
 
-    // 获取栈顶元素
+    /// @brief 获取栈顶元素
+    /// @return 栈顶元素的引用
     T &top();
 
-    // 获取栈顶元素
+    /// @brief 获取栈顶元素（常量引用）
+    /// @return 栈顶元素的常量引用
     T const &top() const;
 
-    // 栈是否为空
+    /// @brief 判断栈是否为空
+    /// @return 如果栈为空返回true，否则返回false
     bool isEmpty() const;
 
-    // 栈的大小
+    /// @brief 获取栈中元素的数量
+    /// @return 栈中元素的数量
     int size() const;
 
 private:
-    // 清除栈
+    /// @brief 清空栈
     void clear() noexcept;
 
 private:
-    // 头指针
     Node<T> *_head;
-
-    // 栈大小
     int _size;
 };
 
@@ -87,14 +78,17 @@ LinkStack<T>::LinkStack() noexcept : _head(nullptr),
 template <class T>
 LinkStack<T>::LinkStack(LinkStack &&other) noexcept
     : _head(other._head),
-      _size(other._size) {
+      _size(other._size)
+{
     other._head = nullptr;
     other._size = 0;
 }
 
 template <class T>
-LinkStack<T> &LinkStack<T>::operator=(LinkStack &&other) noexcept {
-    if (this != &other) {
+LinkStack<T> &LinkStack<T>::operator=(LinkStack &&other) noexcept
+{
+    if (this != &other)
+    {
         clear();
         _head = other._head;
         _size = other._size;
@@ -105,29 +99,32 @@ LinkStack<T> &LinkStack<T>::operator=(LinkStack &&other) noexcept {
 }
 
 template <class T>
-LinkStack<T>::~LinkStack() {
+LinkStack<T>::~LinkStack()
+{
     clear();
 }
 
-// 左值入栈
 template <class T>
-void LinkStack<T>::push(T const &val) {
+void LinkStack<T>::push(T const &val)
+{
     Node<T> *newNode = new Node<T>(val, _head);
     _head = newNode;
     ++_size;
 }
 
-// 右值入栈
 template <class T>
-void LinkStack<T>::push(T &&val) {
+void LinkStack<T>::push(T &&val)
+{
     Node<T> *newNode = new Node<T>(std::move(val), _head);
     _head = newNode;
     ++_size;
 }
 
 template <class T>
-T LinkStack<T>::pop() {
-    if (isEmpty()) {
+T LinkStack<T>::pop()
+{
+    if (isEmpty())
+    {
         throw std::underflow_error("LinkStack is empty");
     }
 
@@ -136,9 +133,12 @@ T LinkStack<T>::pop() {
     --_size;
 
     T result;
-    try {
+    try
+    {
         result = std::move(temp->_data);
-    } catch (...) {
+    }
+    catch (...)
+    {
         delete temp; // 确保在移动构造抛出时不会泄漏节点
         throw;
     }
@@ -147,34 +147,42 @@ T LinkStack<T>::pop() {
 }
 
 template <class T>
-T &LinkStack<T>::top() {
-    if (isEmpty()) {
+T &LinkStack<T>::top()
+{
+    if (isEmpty())
+    {
         throw std::underflow_error("LinkStack is empty");
     }
     return _head->_data;
 }
 
 template <class T>
-T const &LinkStack<T>::top() const {
-    if (isEmpty()) {
+T const &LinkStack<T>::top() const
+{
+    if (isEmpty())
+    {
         throw std::underflow_error("LinkStack is empty");
     }
     return _head->_data;
 }
 
 template <class T>
-bool LinkStack<T>::isEmpty() const {
+bool LinkStack<T>::isEmpty() const
+{
     return _head == nullptr;
 }
 
 template <class T>
-int LinkStack<T>::size() const {
+int LinkStack<T>::size() const
+{
     return _size;
 }
 
 template <class T>
-void LinkStack<T>::clear() noexcept {
-    while (_head) {
+void LinkStack<T>::clear() noexcept
+{
+    while (_head)
+    {
         Node<T> *tmp = _head;
         _head = _head->_next;
         delete tmp;

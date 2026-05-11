@@ -106,7 +106,7 @@ bool SingleList::remove(const int val)
 }
 
 // 移除当前列表中指定位置的值
-bool SingleList::removeposition(const int pos)
+bool SingleList::removeAtPosition(const int pos)
 {
     if (pos < 0 || pos >= this->_size)
     {

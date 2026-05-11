@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 
-/// @brief  节点类型
+/// @brief 节点类型
 struct Node
 {
     Node(int val) : _data(val), _next(nullptr) {}
@@ -22,7 +22,7 @@ public:
     CircularSingleList &operator=(const CircularSingleList &) = delete;
 
     /// @brief 头插法在链表头部插入一个节点
-    /// @param val
+    /// @param val 要插入的值
     void insertAtHead(const int val)
     {
         Node *newNode = new Node(val);
@@ -46,7 +46,7 @@ public:
     }
 
     /// @brief 尾插法在链表尾部插入一个节点
-    /// @param val
+    /// @param val 要插入的值
     void insertAtTail(const int val)
     {
         Node *newNode = new Node(val);
@@ -69,8 +69,8 @@ public:
     }
 
     /// @brief 在指定位置插入一个节点
-    /// @param index
-    /// @param val
+    /// @param index 要插入的位置，0表示在链表头部插入，size()表示在链表尾部插入
+    /// @param val 要插入的值
     void insertAtPosition(const int index, const int val)
     {
         if (index < 0 || index > _size)
@@ -102,7 +102,7 @@ public:
     }
 
     /// @brief 删除链表中第一个值为val的节点
-    /// @param val
+    /// @param val 要删除的值
     /// @return 删除成功返回true，否则返回false
     bool removeFirstVal(const int val)
     {
@@ -219,7 +219,7 @@ public:
     }
 
     /// @brief 删除链表中指定位置的节点
-    /// @param pos
+    /// @param pos 要删除的位置
     /// @return 删除成功返回true，否则返回false
     bool removePosition(const int pos)
     {

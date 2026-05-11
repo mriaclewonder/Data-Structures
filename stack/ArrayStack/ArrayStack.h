@@ -14,18 +14,43 @@ public:
     MyStack<T> &operator=(MyStack<T> &&other) noexcept;
     virtual ~MyStack();
 
+    /// @brief 入栈
+    /// @param data 要入栈的元素
     void Push(T data);
+
+    /// @brief 出栈
+    /// @return 出栈的元素
     T Pop();
+
+    /// @brief 获取栈顶元素
+    /// @return 栈顶元素的引用
     T &Top();
+
+    /// @brief 获取栈顶元素（常量版本）
+    /// @return 栈顶元素的常量引用
     const T &Top() const;
+
+    /// @brief 判断栈是否为空
+    /// @return 如果栈为空，返回true；否则返回false
     bool isEmpty() const;
+
+    /// @brief 判断栈是否已满
+    /// @return 如果栈已满，返回true；否则返回false
     bool isFull() const;
+
+    /// @brief 清空栈
     void Clear();
+
+    /// @brief 获取栈中元素的数量
+    /// @return 栈中元素的数量
     std::size_t GetSize() const;
 
+    /// @brief 获取栈的容量
+    /// @return 栈的容量
     std::size_t GetCapacity() const;
 
 private:
+    /// @brief 扩容函数，当栈满时调用，自动将栈的容量翻倍
     void Resize();
 
 private:
@@ -34,26 +59,22 @@ private:
     std::size_t maxSize;
 };
 
-// 默认构造
 template <class T>
 inline MyStack<T>::MyStack() : top(0), maxSize(100), array(new T[maxSize])
 {
 }
 
-// 有参构造
 template <class T>
 inline MyStack<T>::MyStack(std::size_t maxElements) : top(0), maxSize(maxElements), array(new T[maxElements])
 {
 }
 
-// 析构函数
 template <class T>
 inline MyStack<T>::~MyStack()
 {
     delete[] array;
 }
 
-// 拷贝构造
 template <class T>
 inline MyStack<T>::MyStack(const MyStack &other) : top(other.top), maxSize(other.maxSize), array(new T[maxSize])
 {
@@ -63,7 +84,6 @@ inline MyStack<T>::MyStack(const MyStack &other) : top(other.top), maxSize(other
     }
 }
 
-// 移动构造
 template <class T>
 inline MyStack<T>::MyStack(MyStack &&other) noexcept : top(other.top), maxSize(other.maxSize), array(other.array)
 {
@@ -109,7 +129,6 @@ inline MyStack<T> &MyStack<T>::operator=(MyStack<T> &&other) noexcept
     return *this;
 }
 
-// 入栈
 template <class T>
 inline void MyStack<T>::Push(T data)
 {
@@ -120,7 +139,6 @@ inline void MyStack<T>::Push(T data)
     top++;
 }
 
-// 出栈
 template <class T>
 inline T MyStack<T>::Pop()
 {
@@ -173,7 +191,6 @@ inline std::size_t MyStack<T>::GetSize() const
     return top;
 }
 
-// 扩容
 template <class T>
 inline void MyStack<T>::Resize()
 {
