@@ -35,13 +35,13 @@ int main()
     list.print();   // 预期: head->2->3->4->nullptr
 
     std::cout << "\n=== 测试按位置删除 ===\n";
-    list.removeposition(0); // 删除头节点（索引0）
+    list.removeAtPosition(0); // 删除头节点（索引0）
     list.print();           // 预期: head->3->4->nullptr
 
-    list.removeposition(1); // 删除第二个节点（索引1，即值为4）
+    list.removeAtPosition(1); // 删除第二个节点（索引1，即值为4）
     list.print();           // 预期: head->3->nullptr
 
-    list.removeposition(1); // 索引越界（当前size=1，索引1无效）
+    list.removeAtPosition(1); // 索引越界（当前size=1，索引1无效）
     // 预期输出: index out of range
     list.print(); // 不变: head->3->nullptr
 
